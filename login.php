@@ -1,36 +1,36 @@
 <?php
 // 데이터베이스 연결
 try {
-  $pdo = new PDO("sqlite:psw.db3");
-  $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo = new PDO("sqlite:psw_v2.db3");
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
-  die("データベース接続エラー: " . $e->getMessage());
+    die("데이터베이스 연결 오류: " . $e->getMessage());
 }
 
 // POST로 전송된 데이터 확인 및 처리
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $username = $_POST['username'];
-  $password = $_POST['password'];
+    $username = $_POST['username'];
+    $password = $_POST['password'];
 
-  // 사용자 인증
-  $query = "SELECT * FROM pssw WHERE user_id = :username";
-  $stmt = $pdo->prepare($query);
-  $stmt->bindParam(':username', $username);
-  $stmt->execute();
-  $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    // 사용자 인증
+    $query = "SELECT * FROM pssw WHERE user_id = :username";
+    $stmt = $pdo->prepare($query);
+    $stmt->bindParam(':username', $username);
+    $stmt->execute();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-  if ($user && $user['user_id'] === 'admin' && $password === '1999') {
-    // 로그인 성공
-    echo "ログインに成功しました";
-    echo "<br>";
-    echo '<a href="login.html">ログイン画面に戻る</a>';
-    exit;
-  } else {
-    // 로그인 실패
-    echo "ユーザーIDまたはパスワードが間違っています";
-    echo "<br>";
-    echo '<a href="login.html">ログイン画面に戻る</a>';
-    exit;
-  }
+    if ($user && $user['md5hash'] === md5($password)) {
+        // 로그인 성공
+        echo "로그인에 성공했습니다.";
+        echo "<br>";
+        echo '<a href="login.html">로그인 화면으로 돌아가기</a>';
+        exit;
+    } else {
+        // 로그인 실패
+        echo "사용자 이름 또는 비밀번호가 잘못되었습니다.";
+        echo "<br>";
+        echo '<a href="login.html">로그인 화면으로 돌아가기</a>';
+        exit;
+    }
 }
 ?>

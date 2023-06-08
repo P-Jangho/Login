@@ -2,16 +2,89 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>ログイン</title>
+  <title>로그인</title>
+  <style>
+    h1 {
+      color: #333;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    form {
+      border: 1px solid #ccc;
+      padding: 20px;
+      width: 300px;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 5px;
+      margin-bottom: 10px;
+    }
+
+    input[type="submit"],
+    .btn-delete {
+      background-color: #333;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      cursor: pointer;
+    }
+
+    input[type="submit"]:hover,
+    .btn-delete:hover {
+      background-color: #555;
+    }
+
+    .btn-delete {
+      background-color: #f44336;
+    }
+  </style>
 </head>
 <body>
-  <h1>ログイン</h1>
+  <h1>로그인</h1>
   <form action="login.php" method="POST">
-    <label for="username">ユーザーID:</label>
+    <label for="username">사용자명:</label>
     <input type="text" id="username" name="username" required><br><br>
-    <label for="password">パスワード:</label>
+    <label for="password">비밀번호:</label>
     <input type="password" id="password" name="password" required><br><br>
-    <input type="submit" value="ログイン">
+    <input type="submit" value="로그인">
   </form>
+
+  <style>
+    .form-container {
+      display: inline-block;
+      margin-right: 20px;
+    }
+  </style>
+
+  <span class="form-container">
+    <h1>회원가입</h1>
+    <form action="register.php" method="POST">
+      <label for="username">사용자명:</label>
+      <input type="text" id="username" name="username" required><br><br>
+      <label for="password">비밀번호:</label>
+      <input type="password" id="password" name="password" required><br><br>
+      <input type="submit" value="회원가입">
+    </form>
+  </span>
+
+  <span class="form-container">
+    <h1>회원탈퇴</h1>
+    <form action="delete.php" method="POST">
+      <label for="username">사용자명:</label>
+      <input type="text" id="username" name="username" required><br><br>
+      <label for="password">비밀번호:</label>
+      <input type="password" id="password" name="password" required><br><br>
+      <input type="submit" class="btn-delete" value="회원탈퇴">
+    </form>
+  </span>
 </body>
 </html>
